@@ -29,6 +29,7 @@ steps:
     type: 'push'
     stage: 'push'
     registry: 'dockerhub'
+    candidate: ${{build}}
     image_name: 'codefreshphil/fast_image_build'
     tags:
       - latest
