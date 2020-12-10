@@ -1,0 +1,35 @@
+version: '1.0'
+# Stages can help you organize your steps in stages
+stages:
+  - 'clone'
+  - 'build'
+  - 'push'
+
+steps:
+  clone:
+    title: 'Cloning repository'
+    type: 'git-clone'
+    repo: 'philzona/fast_image_build'
+    revision: '${{CF_BRANCH}}'
+    git: 'github-cf'
+    stage: 'clone'
+
+  build:
+    title: 'Building Docker image'
+    stage: 'build'
+    type: 'freestyle'
+    image: 'docker:19.03.12-dind'
+    working_directory: '${{clone}}'
+    commands:
+      - docker build -t codefreshphil/fast_image_build .
+      - docker tag codefreshphil/fast_image_build codefreshphil/fast_image_build:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+
+  push:
+    title: 'Pushing to Docker Hub'
+    type: 'push'
+    stage: 'push'
+    registry: 'dockerhub'
+    image_name: 'codefreshphil/fast_image_build'
+    tags:
+      - latest
+      - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
