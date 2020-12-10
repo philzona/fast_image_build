@@ -17,19 +17,20 @@ steps:
   build:
     title: 'Building Docker image'
     stage: 'build'
-    type: 'freestyle'
-    image: 'docker:19.03.12-dind'
+    type: 'build'
     working_directory: '${{clone}}'
-    commands:
-      - docker build -t codefreshphil/fast_image_build .
-      - docker tag codefreshphil/fast_image_build codefreshphil/fast_image_build:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+    image_name: 'codefreshphil/fast_image_build'
+    tags:
+      - latest
+      - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+    registry: 'dockerhub'
 
   push:
     title: 'Pushing to Docker Hub'
     type: 'push'
     stage: 'push'
     registry: 'dockerhub'
-    candidate: ${{build}}
+    candidate: ${{ build }}
     image_name: 'codefreshphil/fast_image_build'
     tags:
       - latest
