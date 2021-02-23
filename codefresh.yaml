@@ -30,6 +30,6 @@ steps:
     stage: "push"
     arguments:
       SONAR_HOST_URL: 'https://sonarcloud.io/' # replace with your host url
-      SONAR_LOGIN: "${{SONAR_TOKEN}}" # replace with your access token
-      SONAR_PROJECT_BASE_DIR: "${{clone}}" #r eplace with your working directory
+      SONAR_LOGIN: '${{SONAR_TOKEN}}' # replace with your access token
+      SONAR_PROJECT_BASE_DIR: '${{CF_REPO_NAME}}' #r eplace with your working directory
       SONAR_SCANNER_CLI_VERSION: "latest"
