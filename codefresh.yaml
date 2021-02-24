@@ -33,3 +33,9 @@ steps:
       SONAR_LOGIN: '${{SONAR_TOKEN}}' # replace with your access token
       SONAR_PROJECT_BASE_DIR: '${{CF_REPO_NAME}}' #r eplace with your working directory
       SONAR_SCANNER_CLI_VERSION: "latest"
+    hooks:
+      on_finish:
+        exec:
+          image: alpine:latest
+          commands:
+            - echo '${{CF_REPO_NAME}}'
