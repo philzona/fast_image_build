@@ -3,7 +3,7 @@ version: '1.0'
 stages:
   - 'clone'
   - 'build'
-  - 'push'
+  - 'test'
 
 steps:
   clone:
@@ -27,7 +27,7 @@ steps:
 
   sonarqube:
     type: "sonar-scanner-cli"
-    stage: "push"
+    stage: "test"
     arguments:
       SONAR_HOST_URL: 'https://sonarcloud.io/' # replace with your host url
       SONAR_LOGIN: '${{SONAR_TOKEN}}' # replace with your access token
