@@ -19,23 +19,8 @@ steps:
     stage: 'build'
     type: 'build'
     working_directory: '${{clone}}'
-    image_name: 'codefreshphil/fast_image_build'
+    image_name: 'codefreshdev.jfrog.io/phil-test/fast_image_build'
     tags:
       - latest
       - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
-    registry: 'dockerhub'
-
-  sonarqube:
-    type: "sonar-scanner-cli"
-    stage: "test"
-    arguments:
-      SONAR_HOST_URL: 'https://sonarcloud.io/' # replace with your host url
-      SONAR_LOGIN: '${{SONAR_TOKEN}}' # replace with your access token
-      SONAR_PROJECT_BASE_DIR: '${{CF_REPO_NAME}}' #r eplace with your working directory
-      SONAR_SCANNER_CLI_VERSION: "latest"
-    hooks:
-      on_finish:
-        exec:
-          image: alpine:latest
-          commands:
-            - echo '${{CF_REPO_NAME}}'
+    registry: 'jfrog'
