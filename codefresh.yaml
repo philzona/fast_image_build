@@ -11,7 +11,7 @@ steps:
     type: 'git-clone'
     repo: 'philzona/fast_image_build'
     revision: '${{CF_BRANCH}}'
-    git: 'github-cf'
+    git: 'github-pzona'
     stage: 'clone'
 
   build:
@@ -19,7 +19,7 @@ steps:
     stage: 'build'
     type: 'build'
     working_directory: '${{clone}}'
-    image_name: 'https://codefreshdev.jfrog.io/phil-test/fast_image_build'
+    image_name: 'codefreshdev.jfrog.io/phil-test/fast_image_build'
     tags:
       - latest
       - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
