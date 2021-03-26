@@ -24,13 +24,10 @@ steps:
       - latest
       - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
     registry: 'jfrog'
-
-  enrich-image:
-    stage: build
-    title: Enrich image with annotations
-    type: image-enricher
-    arguments:
-      IMAGE: 'codfreshdev.jfrog.io/phil-test/fast_image_build:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-      BRANCH: '${{CF_BRANCH}}'
-      REPO: 'phil-test/fast_image_build'
-      GIT_PROVIDER_NAME: github-pzona 
+    annotations:
+      set:
+        - annotations:
+          - my_number_annotation: 9999
+          - my_empty_annotation
+          - my_docker_file: "file:Dockerfile"
+          - my_text_annotation: simple_text
