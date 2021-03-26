@@ -24,3 +24,13 @@ steps:
       - latest
       - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
     registry: 'jfrog'
+
+  enrich-image:
+    stage: build
+    title: Enrich image with annotations
+    type: image-enricher
+    arguments:
+      IMAGE: 'codfreshdev.jfrog.io/phil-test/fast_image_build:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      BRANCH: '${{CF_BRANCH}}'
+      REPO: 'phil-test/fast_image_build'
+      GIT_PROVIDER_NAME: github-pzona 
