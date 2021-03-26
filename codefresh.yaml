@@ -27,5 +27,5 @@ steps:
     on_success:
       metadata:
         set:
-          - ${{build.imageId}}
+          - '${{build.imageId}}':
             - CF_QUALITY: true
