@@ -24,9 +24,8 @@ steps:
       - latest
       - ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
     registry: 'jfrog'
-    hooks:
-      on_success:
-        metadata:
-          set:
-            - ${{build.imageId}}
-              - build: passing
+    on_success:
+      metadata:
+        set:
+          - ${{build.imageId}}
+            - CF_QUALITY: true
